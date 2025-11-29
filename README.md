@@ -30,14 +30,26 @@ Harmonizes CRM and ERP schemas.
 
 Prepares clean, reliable data for reporting and analytics.
 
+
 🟡 Gold Layer – Business-Ready Layer
 
 
-Business-driven layer (currently no direct loading).
+Designed specifically for BI and business analytics needs.
 
-Intended for dashboards, KPIs, curated views, and analytics models.
+Uses a Star Schema data modeling approach:
 
-Supports Power BI and ad-hoc SQL analysis.
+Fact tables for transactional/business measurement data (e.g., sales, bookings, transactions).
+
+Dimension tables for descriptive attributes (e.g., customers, products, dates).
+
+Optimized for:
+
+
+Power BI dashboard performance
+
+Ad-hoc SQL analytical queries
+
+Fast query execution and simplified data navigation.
 
 
 📊 Analytics & Consumption
@@ -45,6 +57,16 @@ Supports Power BI and ad-hoc SQL analysis.
 Designed to support Power BI, self-service analytics, and ad hoc queries.
 
 Allows business users and analysts to explore integrated CRM and ERP insights.
+
+Method	How It Uses the Gold Layer
+
+Power BI Dashboards	Connects to the Star Schema model to generate KPIs, 
+
+visuals, and performance dashboards.
+
+Ad-hoc SQL Queries	Analysts query fact and dimension tables directly for deeper insight and data exploration.
+
+✔ Gold layer delivers clean, curated, business-aligned data in a scalable and high-performance structure.
 
 
 📂 Repository Contents
@@ -58,9 +80,13 @@ Folder	Description
 🚀 Key Highlights
 
 ✔ Built using a Data Architect approach for scalability
+
 ✔ Implements Medallion architecture best practices
+
 ✔ Data extracted from CRM & ERP and fed through Bronze → Silver → Gold
+
 ✔ Designed to support Power BI reporting and business decision-making
+
 ✔ Includes documentation, scripts, datasets, and test cases
 
 📈 Future Enhancements
