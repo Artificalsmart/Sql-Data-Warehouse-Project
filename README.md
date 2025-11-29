@@ -1,4 +1,4 @@
-# Sql-Data-Warehouse-Project
+# SQL-Data-Warehouse-Project
 Building Model Data warehouse with ETL Processes and Star Schema
 
 🏗️ Data Warehouse Architecture – Medallion Framework (Bronze / Silver / Gold)
