@@ -68,6 +68,8 @@ Implement business-ready models in Gold
 Integrate data quality rules
 
 👤 Author
-Mohamed assem
+Mohamed assem  
+
 Data Architect & BI Developer
+
 📫 assemmohamed331@gmail.com  
