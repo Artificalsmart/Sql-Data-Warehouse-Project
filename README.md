@@ -13,6 +13,7 @@ ERP	Includes finance, inventory, transactions, and operational business function
 These raw data streams are ingested into the DWH as the starting point of the pipeline.
 
 💾 Medallion Layer Structure
+
 🟤 Bronze Layer – Raw Ingestion
 
 Full-load ingestion only (no incremental processing).
@@ -31,11 +32,13 @@ Prepares clean, reliable data for reporting and analytics.
 
 🟡 Gold Layer – Business-Ready Layer
 
+
 Business-driven layer (currently no direct loading).
 
 Intended for dashboards, KPIs, curated views, and analytics models.
 
 Supports Power BI and ad-hoc SQL analysis.
+
 
 📊 Analytics & Consumption
 
@@ -43,12 +46,15 @@ Designed to support Power BI, self-service analytics, and ad hoc queries.
 
 Allows business users and analysts to explore integrated CRM and ERP insights.
 
+
 📂 Repository Contents
 Folder	Description
 /docs	Architecture documentation, data flow, design choices
 /scripts	ETL/ELT logic and pipeline scripts
 /datasets	Sample data for implementation/testing
 /tests	Validation scripts for ingestion and transformation
+
+
 🚀 Key Highlights
 
 ✔ Built using a Data Architect approach for scalability
