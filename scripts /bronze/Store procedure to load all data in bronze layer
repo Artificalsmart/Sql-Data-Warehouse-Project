@@ -14,6 +14,7 @@ parameters:
 USAGE Example :
 			EXEC bronze.load_bronze
 */
+
 create or alter proc bronze.load_bronze
 as
 begin
