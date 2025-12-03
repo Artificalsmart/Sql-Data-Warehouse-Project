@@ -1,0 +1,177 @@
+/*
+===================================================
+store procedure script : load data to Bronze layer
+===================================================
+script purpose:
+---------------
+>> truncate and load 
+>> know data from each source 
+>>time take to load data 
+>>try and catch if any error 
+parameters:
+			None 
+			this store procedure doesn't take any parameters
+USAGE Example :
+			EXEC bronze.load_bronze
+*/
+create or alter proc bronze.load_bronze
+as
+begin
+declare @start_time datetime , @end_time datetime 
+declare @start_time_f datetime , @end_time_f datetime
+set @start_time_f =GETDATE()
+
+BEGIN TRY
+		print'=================================';
+		print'loading data in Bronze Layer';
+		print'=================================';
+
+		print'----------------------------------'
+		print 'loading from  CRM'
+		print'-----------------------------------'
+
+		set @start_time = GETDATE()
+		print'>> truncate Bronze.crm_cust_info'
+
+		truncate table Bronze.crm_cust_info
+
+		print'>> load data Bronze.crm_cust_info'
+
+		bulk insert Bronze.crm_cust_info 
+		from 'E:\Projects\DWH Project + Power BI\Data set\Source_CRM\cust_info.csv'
+		with(
+		firstrow=2,
+		FIELDTERMINATOR =',',
+		Tablock
+		);
+		set @end_time = GETDATE()
+		print'>> load time '+ cast(DateDiff(second,@start_time,@end_time) as nvarchar) + ' seconds'
+		print'-------------------'
+		
+		set @start_time = GETDATE()
+
+		print'>> truncate bronze.crm_prd_info'
+
+		TRUNCATE TABLE bronze.crm_prd_info
+
+		print'>> load data bronze.crm_prd_info'
+
+
+		bulk insert bronze.crm_prd_info
+		from 'E:\Projects\DWH Project + Power BI\Data set\Source_CRM\prd_info.csv'
+		with(
+		firstrow=2,
+		Fieldterminator =',',
+		TABLOCK
+		)
+
+		print'>> truncate bronze.crm_sales_details'
+
+		set @end_time = GETDATE()
+		print'>> load time '+ cast(DateDiff(second,@start_time,@end_time) as nvarchar) + ' seconds'
+		print'-------------------'
+
+		set @start_time = getdate()
+
+		truncate table bronze.crm_sales_details
+
+
+		print'>> load data bronze.crm_sales_details'
+
+
+
+		bulk insert bronze.crm_sales_details
+		from 'E:\Projects\DWH Project + Power BI\Data set\Source_CRM\sales_details.csv'
+		with(
+		firstrow =2 ,
+		fieldterminator = ',',
+		tablock
+		)
+		set @end_time = GETDATE()
+		print'>> load time '+ cast(DateDiff(second,@start_time,@end_time) as nvarchar) + ' seconds'
+		print'-------------------'
+
+		print'----------------------------------'
+		print 'loading from  ERP'
+		print'-----------------------------------'
+
+		set @start_time = getdate()
+		print'>> truncate bronze.erp_CUST_AZ12'
+
+
+
+		truncate table bronze.erp_CUST_AZ12
+
+
+		print'>> load data bronze.erp_CUST_AZ12'
+
+
+		bulk insert bronze.erp_CUST_AZ12
+		from 'E:\Projects\DWH Project + Power BI\Data set\Source_ERP\CUST_AZ12.csv'
+		with(
+		firstrow=2 ,
+		fieldterminator = ',',
+		tablock
+		)
+		set @end_time = GETDATE()
+		print'>> load time '+ cast(DateDiff(second,@start_time,@end_time) as nvarchar) + ' seconds'
+		print'-------------------'
+
+		set @start_time =getdate()
+
+		print'>> truncate bronze.erp_LOC_A101'
+
+
+		truncate table bronze.erp_LOC_A101
+
+
+		print'>> truncate bronze.erp_LOC_A101'
+
+
+		bulk insert bronze.erp_LOC_A101
+		from 'E:\Projects\DWH Project + Power BI\Data set\Source_ERP\LOC_A101.csv'
+		with(
+		firstrow=2,
+		fieldterminator=',',
+		tablock
+		)
+
+		set @end_time = GETDATE()
+		print'>> load time '+ cast(DateDiff(second,@start_time,@end_time) as nvarchar) + ' seconds'
+		print'-------------------'
+
+		set @start_time=getdate()
+
+		print'>> truncate bronze.erp_PX_CAT_G1V2'
+
+
+		truncate table bronze.erp_PX_CAT_G1V2
+
+		print'>> load data bronze.erp_PX_CAT_G1V2'
+
+
+		bulk insert bronze.erp_PX_CAT_G1V2
+		from 'E:\Projects\DWH Project + Power BI\Data set\Source_ERP\PX_CAT_G1V2.csv'
+		with (
+		firstrow=2,
+		fieldterminator= ',',
+		tablock
+		)
+		set @end_time = GETDATE()
+		print'>> load time '+ cast(DateDiff(second,@start_time,@end_time) as nvarchar) + ' seconds'
+		print'-------------------'
+		set @end_time_f =GETDATE()
+		print'======================================================'
+		print'Load Bronze Layer is completed '
+		print'full load Duration '+cast(datediff(second,@start_time_f,@end_time_f) as nvarchar)+' seconds'
+		print'======================================================'
+END TRY
+BEGIN CATCH
+	print '====================================='
+	print 'ERROR DURING LOAD BRONZE LAYER '
+	print 'ERROR Message'+ error_message();
+	print 'ERROR Number'+cast( error_number() as nvarchar);
+	print '====================================='
+END CATCH
+end 
+
